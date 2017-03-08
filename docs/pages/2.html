@@ -1,0 +1,23 @@
+<div class="centered row">
+    <h1>Parseltongue:</h1>
+</div>
+
+<div class="centered row">
+    <h2>Harry's spell to escape:</h2>
+    <pre>
+        <code>
+<span class="identifier">sssSpell</span> <~ <span class="literal">'Expecto Patronum'</span>
+
+<span class="function">sssMagic</span> [<span class="argument">sssSpell</span>, <span class="argument">sssIntensity</span>]
+    <span class="identifier">sssIntense</span> <~ <span class="literal">''</span>
+    <span class="keyword">sssss</span> <span class="identifier">sssI</span> <~ <span class="literal">0</span> ~> <span class="argument">sssIntensity</span>
+        <span class="identifier">sssIntense</span> <~ <span class="identifier">sssIntense</span> + <span class="literal">'!'</span>
+
+    <~ <span class="argument">sssSpell</span> + <span class="identifier">sssIntense</span>
+
+<span class="identifier">sssResult</span>
+<span class="keyword">sssss</span> <span class="identifier">sssI</span> <~ <span class="literal">0</span> ~> <span class="literal">10</span>
+    <span class="identifier">sssResult</span> <~ <span class="function">sssMagic</span> <~ [<span class="argument">sssSpell</span>, <span class="argument">sssI</span>]
+        </code>
+    </pre>
+</div>

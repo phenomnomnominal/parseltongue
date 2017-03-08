@@ -1,0 +1,88 @@
+<html>
+    <head>
+        <title>PARSELTONGUE</title>
+        <link rel="icon"  type="image/png" href="./assets/favicon.png">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Overpass+2|Overpass+Mono" rel="stylesheet">
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+
+            html, body {
+                background-color: #222;
+            }
+
+            main {
+                height: 100%;
+                padding: 10% !important;
+            }
+
+            h1, h2 {
+                font-family: Overpass 2, sans-serif;
+                text-transform: uppercase;
+                font-weight: bold;
+                color: white;
+            }
+
+            h1 {
+                font-size: 5rem;
+            }
+            h2 {
+                font-size: 3rem;
+                margin-bottom: none;
+            }
+
+            code {
+                font-family: Overpass Mono, sans-serif;
+                font-size: 1.5rem;
+                line-height: 1.8rem;
+            }
+
+            code {
+                display: block;
+                color: white;
+                text-align: left;
+            }
+
+            code span.identifier {
+                color: #db2828;
+            }
+            code span.literal {
+                color: #fbbd08;
+            }
+            code span.function {
+                color: #21ba45;
+            }
+            code span.argument {
+                color: #2185d0;
+            }
+            code span.keyword {
+                color: #e03997;
+            }
+        </style>
+    </head>
+    <body>
+        <main class="ui centered grid"></main>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.js"></script>
+        <script>
+            $(() => {
+                location.hash = '';
+                load();
+            });
+
+            let $main = $('main');
+            let $next = $(document).on('click', '.button', load);
+
+            function load () {
+                let page = +location.hash.replace(/^#/, '') + 1;
+                $.get(`./pages/${page}.html`)
+                .then(result => {
+                    location.hash = page;
+                    $main.html(result);
+                });
+            }
+        </script>
+    </body>
+</html>
