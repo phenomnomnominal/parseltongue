@@ -3,7 +3,7 @@
 </div>
 
 <div class="centered row">
-    <h2>Harry's spell to escape:</h2>
+    <h2>MAGIC:</h2>
     <pre>
         <code>
 <span class="identifier">sssSpell</span> <~ <span class="literal">'Expecto Patronum'</span>
@@ -18,29 +18,31 @@
 <span class="identifier">sssResult</span>
 <span class="keyword">sssss</span> <span class="identifier">sssI</span> <~ <span class="literal">0</span> ~> <span class="literal">10</span>
     <span class="identifier">sssResult</span> <~ <span class="function">sssMagic</span> <~ [<span class="argument">sssSpell</span>, <span class="argument">sssI</span>]
+
+<span class="function">sssCast</span> <~ [<span class="argument">sssResult</span>]
         </code>
     </pre>
+
 </div>
 
 <div class="centered row">
-    <div class="four wide column">
-        <button id="next" class="massive fluid inverted green ui button">
-            Next!
-        </button>
-    </div>
+    <button id="run6" class="massive inverted blue ui button">
+        Run!
+    </button>
+    <button id="next" class="massive inverted green ui button">
+        Next!
+    </button>
 </div>
 
+<script type="text/parseltongue" src="../spells/2.pt"></script>
+
 <script>
-sssSpell <~ 'Expecto Patronum'
+    $('#run6').click(run6);
 
-sssMagic [sssSpell, sssIntensity]
-    sssIntense <~ ''
-    sssss sssI <~ 0 ~> sssIntensity
-        sssIntense <~ sssIntense + '!'
-
-    <~ sssSpell + sssIntense
-
-sssResult
-sssss sssI <~ 0 ~> 10
-    sssResult <~ sssMagic <~ [sssSpell, sssI]
+    function run6 () {
+        let script6 = document.createElement('script');
+        script6.src = '../assets/parseltongue-no-lint.js';
+        document.head.appendChild(script6);
+        script6.parentNode.removeChild(script6);
+    }
 </script>

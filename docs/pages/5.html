@@ -3,7 +3,7 @@
 </div>
 
 <div class="centered row">
-    <h2>Harry's spell to escape:</h2>
+    <h2>AST:</h2>
     <pre>
         <code>
 <span class="identifier">sssSpell</span> <~ <span class="literal">'Expecto Patronum'</span>
@@ -23,24 +23,23 @@
 </div>
 
 <div class="centered row">
-    <div class="four wide column">
-        <button id="next" class="massive fluid inverted green ui button">
-            Next!
-        </button>
-    </div>
+    <button id="run5" class="massive inverted blue ui button">
+        Run!
+    </button>
+    <button id="next" class="massive inverted green ui button">
+        Next!
+    </button>
 </div>
 
+<script type="text/parseltongue" src="../spells/1.pt"></script>
+
 <script>
-sssSpell <~ 'Expecto Patronum'
+    $('#run5').click(run5);
 
-sssMagic [sssSpell, sssIntensity]
-    sssIntense <~ ''
-    sssss sssI <~ 0 ~> sssIntensity
-        sssIntense <~ sssIntense + '!'
-
-    <~ sssSpell + sssIntense
-
-sssResult
-sssss sssI <~ 0 ~> 10
-    sssResult <~ sssMagic <~ [sssSpell, sssI]
+    function run5 () {
+        let script5 = document.createElement('script');
+        script5.src = '../assets/parseltongue-ast.js';
+        document.head.appendChild(script5);
+        script5.parentNode.removeChild(script5);
+    }
 </script>
