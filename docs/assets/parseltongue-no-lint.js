@@ -22530,6 +22530,7 @@ if (!global.document) {
 }
 
 function parseltongue(scriptPath, pt) {
+    debugger;
     var lexed = (0, _lexer.lex)(pt, scriptPath);
     var ast = (0, _parser.parse)(lexed);
 

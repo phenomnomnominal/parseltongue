@@ -22526,6 +22526,7 @@ if (!global.document) {
 }
 
 function parseltongue(scriptPath, pt) {
+    debugger;  
     var lexed = (0, _lexer.lex)(pt, scriptPath);
     console.log(lexed.tokens);
 }
