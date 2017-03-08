@@ -31,14 +31,14 @@
     </button>
 </div>
 
-<script type="text/parseltongue" src="/spells/1.pt"></script>
+<script type="text/parseltongue" src="./spells/1.pt"></script>
 
 <script>
     $('#run5').click(run5);
 
     function run5 () {
         let script5 = document.createElement('script');
-        script5.src = '/assets/parseltongue-ast.js';
+        script5.src = './assets/parseltongue-ast.js';
         document.head.appendChild(script5);
         script5.parentNode.removeChild(script5);
     }
