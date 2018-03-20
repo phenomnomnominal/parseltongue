@@ -1,46 +1,34 @@
 // Constants:
-const PUNCTUATOR_REGEX = /[!\.\+\-\*\/\^%<>,\[\]{}\(\)&\|=~]/;
-
-const LENGTH_ONE = [
-    '!', '.', '+','-', '*', '/', '^', '%', '<', '>', ',', '(', ')', '[', ']', '{', '}'
-];
-const LENGTH_TWO = [
-    '&&', '||', '<~', '~>', '<=', '>=', '==', '!='
-];
-const WORDS = [null, LENGTH_ONE, LENGTH_TWO];
-
-// Utilities:
-import { backup, next } from './lex-utils';
+const PUNCTUATOR_REGEX = /[!.+\-*/^%<>,[\]{}()&=~]/;
 
 // Dependencies:
 import { lexText } from './lex-text';
-import { PUNCTUATOR } from '../tokens/token-types';
-import { addToken } from '../tokens/tokens';
+import { isPossiblyOperator } from '../operators';
+import { isPunctuator } from '../punctuators';
+import { addToken, PUNCTUATOR } from '../tokens';
+import { accept, backup } from './utilities';
 
 export function isPunctuatorChar (c) {
     return PUNCTUATOR_REGEX.test(c);
 }
 
 export function lexPunctuator (state) {
-      let c = next(state);
-      // Since "=" and "~"" are only valid when they appear next to
-      // another punctuator, we check the punctators of length 2
-      // first.
-      let nextTwo = `${c}${next(state)}`;
-      if (isPunctuator(nextTwo)) {
-          addToken(state, PUNCTUATOR);
-          return lexText;
-      }
+    // Handle valid punctuators next to each other. e.g. [[],[]];
+    while (accept(state, isPunctuatorChar)) {
+        let word = state.source.substring(state.start, state.pos);
 
-      backup(state);
-      if (isPunctuator(c)) {
-          addToken(state, PUNCTUATOR);
-          return lexText;
-      }
+        if (!isPunctuator(word) && !isPossiblyOperator(word)) {
+            backup(state);
+            addToken(state, PUNCTUATOR);
+            return lexText;
+        }
+    }
 
-      throw new SyntaxError(`Invalid punctuator: "${c}"`);
-}
+    const word = state.source.substring(state.start, state.pos);
+    if (isPunctuator(word)) {
+        addToken(state, PUNCTUATOR);
+        return lexText;
+    }
 
-function isPunctuator (word) {
-    return WORDS[word.length].includes(word);
+    throw new SyntaxError(`Invalid punctuator: "${word}"`);
 }

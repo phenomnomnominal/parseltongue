@@ -3001,7 +3001,7 @@ function parseAssignment(state) {
                 return new _assignmentExpression.AssignmentExpression(identifier, initialValue, identifier.loc);
             }
             if (exists === 'function') {
-                return new _callExpression.CallExpression(identifier, initialValue.elements, identifier.loc);
+                return { type: 'ExpressionStatement', expression: new _callExpression.CallExpression(identifier, initialValue.elements, identifier.loc) };
             }
         } else {
             return new _variableDeclaration.VariableDeclaration([new _variableDeclarator.VariableDeclarator(identifier, initialValue, identifier.loc)], identifier.loc);

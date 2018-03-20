@@ -1,0 +1,17 @@
+export const ADD = '+';
+export const AND = '&&';
+export const ASSIGNMENT = '<~';
+export const DIVIDE = '/';
+export const EQUALS = '==';
+export const GREATER_THAN = '>';
+export const GREATER_THAN_OR_EQUAL = '>=';
+export const MODULO = '%';
+export const MULTIPLY = '*';
+export const NOT = '!';
+export const NOT_EQUALS = '!=';
+export const OR = '||';
+export const POWER = '^';
+export const LESS_THAN = '<';
+export const LESS_THAN_OR_EQUAL = '<=';
+export const SUBTRACT = '-';
+export const TO = '~>';

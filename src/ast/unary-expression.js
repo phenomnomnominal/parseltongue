@@ -3,7 +3,7 @@ import { Expression } from './expression';
 
 export class UnaryExpression extends Expression {
     constructor (operator, argument, prefix, loc) {
-        super('UnaryExpression');
+        super();
         this.operator = operator;
         this.argument = argument;
         this.prefix = prefix;

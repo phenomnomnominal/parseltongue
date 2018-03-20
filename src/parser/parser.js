@@ -1,8 +1,7 @@
 // Dependencies:
 import { parseProgram } from './parse-program';
-import { createState } from './parser-state';
+import { createState } from './state';
 
 export function parse (lexState) {
-    let state = createState(lexState);
-    return parseProgram(state);
+    return parseProgram(createState(lexState));
 }

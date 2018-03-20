@@ -2,13 +2,10 @@
 const SPACE_REGEX = / /;
 const WHITE_SPACE_REGEX = /\s/;
 
-// Utilities:
-import { acceptRun, peek } from './lexer-utils';
-
 // Dependencies:
+import { addToken, INDENT, LINE_TERMINATOR, SPACE } from '../tokens';
 import { lexText } from './lex-text';
-import { INDENT, LINE_TERMINATOR, SPACE } from '../tokens/token-types';
-import { addToken } from '../tokens/tokens';
+import { acceptRun, peek } from './utilities';
 
 export function isLineTerminator (c) {
     return !!(c === '\n');

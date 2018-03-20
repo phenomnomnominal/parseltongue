@@ -1,7 +1,7 @@
 // Constants:
-const IMPERIO = 'imperio'
-const CRUCIO = 'crucio'
-const AVADAKEDAVRA = 'avadakedavra'
+const IMPERIO = 'imperio';
+const CRUCIO = 'crucio';
+const AVADAKEDAVRA = 'avadakedavra';
 
 // Dependencies:
 import esquery from 'esquery';

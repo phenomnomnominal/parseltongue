@@ -1,6 +1,4 @@
 language: node_js
 node_js:
   - "node"
-script: yarn run build && yarn run coveralls
-after_success:
-  - bash travis-after-build.sh
+script: npm run build && npm run coveralls

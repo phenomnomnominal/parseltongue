@@ -2,8 +2,8 @@
 import { ARRAY_END, ARRAY_START, SEPARATOR } from '../punctuators';
 
 // Dependencies:
-import { ArrayExpression } from '../ast/array-expression';
-import { parseBinaryExpression } from './parse-value';
+import { ArrayExpression } from '../ast';
+import { parseBinaryExpression } from './parse-binary-expression';
 import { expectPunctuators, matchPunctuators } from './parse-punctuators';
 import { expectSpace } from './parse-whitespace';
 
@@ -16,11 +16,11 @@ export function parseArray (state) {
 
     let elements = [];
     if (!matchPunctuators(state, ARRAY_END)) {
-        elements.push(parseBinaryExpression(state));
+        elements.push(parseBinaryExpression(state).ast);
         while (!matchPunctuators(state, ARRAY_END)) {
             expectPunctuators(state, SEPARATOR);
             expectSpace(state);
-            elements.push(parseBinaryExpression(state));
+            elements.push(parseBinaryExpression(state).ast);
         }
     }
     expectPunctuators(state, ARRAY_END);

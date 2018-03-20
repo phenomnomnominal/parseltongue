@@ -1,8 +1,9 @@
+// Dependencies:
 import { Node } from './node';
 
 export class Program extends Node {
     constructor (body) {
-        super('Program');
+        super();
         this.body = body;
     }
 }

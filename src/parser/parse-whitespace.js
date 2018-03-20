@@ -1,8 +1,8 @@
 // Utilities:
-import { consume, next, throwUnexpected } from './parser-utils';
+import { consume, next, throwUnexpected } from './utilities';
 
 // Dependencies:
-import { EOF, INDENT, LINE_TERMINATOR, SPACE } from '../tokens/token-types';
+import { EOF, INDENT, LINE_TERMINATOR, SPACE } from '../tokens';
 
 export function expectEOF (state) {
     let token = consume(state);
@@ -15,6 +15,14 @@ export function expectEOF (state) {
 export function matchEOF (state) {
     let { type } = next(state);
     return type === EOF;
+}
+
+export function consumeIndents (state) {
+    let indents = [];
+    while (matchIndent(state)) {
+        indents.push(consume(state));
+    }
+    return indents;
 }
 
 export function expectIndent (state) {
@@ -32,10 +40,16 @@ export function matchIndent (state) {
 
 export function expectLineTerminator (state) {
     let token = consume(state);
-    if (token.type !== LINE_TERMINATOR) {
+    let { type } = token;
+    if (type !== LINE_TERMINATOR) {
         throwUnexpected(state, LINE_TERMINATOR, token);
     }
     return token;
+}
+
+export function matchLineTerminator (state) {
+    let { type } = next(state);
+    return type === LINE_TERMINATOR;
 }
 
 export function expectLineTerminatorOrEOF (state) {
@@ -47,14 +61,8 @@ export function expectLineTerminatorOrEOF (state) {
     return token;
 }
 
-export function matchLineTerminator (state) {
-    let { type } = next(state);
-    return type === LINE_TERMINATOR;
-}
-
 export function matchLineTerminatorOrEOF (state) {
-    return matchLineTerminator(state) ||
-        matchEOF(state);
+    return matchLineTerminator(state) || matchEOF(state);
 }
 
 export function expectSpace (state) {

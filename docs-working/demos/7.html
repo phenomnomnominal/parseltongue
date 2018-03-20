@@ -1,0 +1,22 @@
+<div class="row">
+    <h2>Inspecting:</h2>
+</div>
+
+<div class="row">
+    <div class="big ui image">
+        <img src="./assets/voldemort-spell.png" alt="Voldemort's spell to stop Harry escaping!"/>
+    </div>
+</div>
+
+<div class="row">
+    <button id="run-inspecting" class="massive blue ui button">
+        Run!
+    </button>
+</div>
+
+<script>
+    $('#run-inspecting').click(() => {
+        window.inject('./spells/voldemort.pt', 'text/parseltongue');
+        window.inject('./assets/parseltongue-full.js');
+    });
+</script>

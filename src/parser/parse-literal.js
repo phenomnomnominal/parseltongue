@@ -1,17 +1,17 @@
 // Constants:
-import { BOOLEAN_LITERAL, NUMERIC_LITERAL, NULL_LITERAL, STRING_LITERAL } from '../tokens/token-types';
+import { BOOLEAN_LITERAL, NUMERIC_LITERAL, NULL_LITERAL, STRING_LITERAL } from '../tokens';
 import { QUOTE } from '../punctuators';
 import { FALSE, NULL, TRUE } from '../values';
 
 // Utilities:
-import { Literal } from '../ast/literal';
-import { consume, next, throwUnexpected} from './parser-utils';
+import { Literal } from '../ast';
+import { consume, next, throwUnexpected } from './utilities';
 
 export function expectLiteral (state) {
     let token = consume(state);
     let { type, value } = token;
     if (!isLiteral(type)) {
-        throwUnexpected(state, 'literal', token)
+        throwUnexpected(state, 'literal', token);
     }
 
     if (type === BOOLEAN_LITERAL) {
@@ -66,6 +66,6 @@ function castNull (value) {
 
 function castString (value) {
     if (value.startsWith(QUOTE) && value.endsWith(QUOTE)) {
-        return value.replace(/^\'/, '').replace(/\'$/, '');
+        return value.replace(/^'/, '').replace(/'$/, '');
     }
 }

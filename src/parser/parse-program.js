@@ -1,14 +1,14 @@
 // Dependencies:
-import { Program } from '../ast/program';
-import { matchExpression, parseExpression } from './parse-expression';
+import { Program } from '../ast';
+import { matchStatement, parseStatement } from './parse-statement';
 
 export function parseProgram (state) {
     let body = [];
 
-    while (hasTokens(state) && matchExpression(state)) {
-        let expression = parseExpression(state);
-        if (expression) {
-            body.push(expression);
+    while (hasTokens(state) && matchStatement(state)) {
+        let statement = parseStatement(state);
+        if (statement) {
+            body.push(statement);
         }
     }
 
@@ -16,5 +16,5 @@ export function parseProgram (state) {
 }
 
 function hasTokens (state) {
-    return state.lexState.tokenIndex < state.lexState.tokens.length
+    return state.lexState.tokenIndex < state.lexState.tokens.length;
 }

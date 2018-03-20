@@ -1,0 +1,25 @@
+<div class="row">
+    <h2>Code generating:</h2>
+</div>
+
+<div class="row">
+    <div class="big ui image">
+        <img src="./assets/harry-spell.png" alt="Harry's spell to escape the internet!"/>
+    </div>
+</div>
+
+<div class="row">
+    <button id="run-code-generating" class="massive blue ui button">
+        Run!
+    </button>
+    <button id="next" class="massive inverted ui button">
+        Next!
+    </button>
+</div>
+
+<script>
+    $('#run-code-generating').click(() => {
+        window.inject('./spells/harry.pt', 'text/parseltongue');
+        window.inject('./assets/parseltongue-no-lint.js');
+    });
+</script>

@@ -1,10 +1,10 @@
 // Constants:
 const IDENTIFIER_REGEX = /^sss/;
-import { IDENTIFIER } from '../tokens/token-types';
+import { IDENTIFIER } from '../tokens';
 
 // Utilities:
 import lowerCaseFirst from 'lower-case-first';
-import { consume, next, throwUnexpected } from './parser-utils';
+import { consume, next, throwUnexpected } from './utilities';
 
 // Dependencies:
 import { Identifier } from '../ast/identifier';

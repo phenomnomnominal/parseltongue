@@ -1,8 +1,8 @@
 // Constants:
-import { PUNCTUATOR } from '../tokens/token-types';
+import { PUNCTUATOR } from '../tokens';
 
 // Utilities:
-import { consume, next, throwUnexpected } from './parser-utils';
+import { consume, next, throwUnexpected } from './utilities';
 
 export function expectPunctuators (state, punctuators) {
     let token = consume(state);

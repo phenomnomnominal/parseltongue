@@ -1,6 +1,3 @@
-// Utilities:
-import { backup, next, peek } from './lex-utils';
-
 // Dependencies:
 import { EOF, isEOF } from './lex-eof';
 import { isIdentifierChar, lexIdentifier } from './lex-identifier';
@@ -8,6 +5,7 @@ import { isDecimalDigit, lexNumber } from './lex-number';
 import { isPunctuatorChar, lexPunctuator } from './lex-punctuator';
 import { isQuoteChar, lexQuote } from './lex-quote';
 import { isWhitespaceChar, lexWhitespace } from './lex-whitespace';
+import { backup, next, peek } from './utilities';
 
 export function lexText (state) {
     let c = next(state);
@@ -15,7 +13,7 @@ export function lexText (state) {
         return EOF;
     } else if (isQuoteChar(c)) {
         return lexQuote(state, c);
-    } else if (isDecimalDigit(c) || (c === '.' && isDecimalDigit(peek(state)))) {
+    } else if (isDecimalDigit(c) || c === '.' && isDecimalDigit(peek(state))) {
         backup(state);
         return lexNumber;
     } else if (isWhitespaceChar(c)) {

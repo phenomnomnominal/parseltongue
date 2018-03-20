@@ -1,8 +1,8 @@
 // Constants:
-import { KEYWORD } from '../tokens/token-types';
+import { KEYWORD } from '../tokens';
 
 // Utilities:
-import { consume, next, throwUnexpected } from './parser-utils';
+import { consume, next, throwUnexpected } from './utilities';
 
 export function expectKeywords (state, keywords) {
     let token = consume(state);

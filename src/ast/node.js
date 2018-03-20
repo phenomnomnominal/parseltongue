@@ -1,5 +1,5 @@
 export class Node {
-    constructor (type) {
-        this.type = type;
+    constructor () {
+        this.type = this.constructor.name;
     }
 }

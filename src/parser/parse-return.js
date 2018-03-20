@@ -2,9 +2,9 @@
 import { ASSIGNMENT } from '../operators';
 
 // Dependencies:
-import { ReturnStatement } from '../ast/return-statement';
+import { ReturnStatement } from '../ast';
+import { parseBinaryExpression } from './parse-binary-expression';
 import { expectPunctuators } from './parse-punctuators';
-import { parseBinaryExpression } from './parse-value';
 import { expectSpace, matchSpace } from './parse-whitespace';
 
 export function parseReturn (state) {
@@ -13,7 +13,7 @@ export function parseReturn (state) {
     let returnExpression = null;
     if (matchSpace(state)) {
         expectSpace(state);
-        returnExpression = parseBinaryExpression(state);
+        returnExpression = parseBinaryExpression(state).ast;
     }
 
     return new ReturnStatement(returnExpression, returnToken.loc);

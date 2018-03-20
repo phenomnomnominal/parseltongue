@@ -2,15 +2,13 @@
 const DECIMAL_CHAR = '.';
 const DECIMAL_DIGIT_TEXT = /[0-9]/;
 
-// Utilities:
-import { accept, acceptRun, peek } from './lexer-utils';
-
 // Dependencies:
+import { addToken, NUMERIC_LITERAL } from '../tokens';
+import { isEOF } from './lex-eof';
 import { isIdentifierChar } from './lex-identifier';
 import { isQuoteChar } from './lex-quote';
 import { lexText } from './lex-text';
-import { NUMERIC_LITERAL } from '../tokens/token-types';
-import { addToken } from '../tokens/tokens';
+import { accept, acceptRun, peek } from './utilities';
 
 export function isDecimalDigit (c) {
     return DECIMAL_DIGIT_TEXT.test(c);
@@ -34,7 +32,7 @@ export function lexNumber (state) {
     // for identifiers or keywords. It also cannot be immediately followed by
     // a string.
     const c = peek(state);
-    if (isIdentifierChar(c) || isQuoteChar(c)) {
+    if (!isEOF(c) && isIdentifierChar(c) || isQuoteChar(c)) {
         let { pos, source, start } = state;
         throw new SyntaxError(`Invalid number: "${source.substring(start, pos + 1)}"`);
     }

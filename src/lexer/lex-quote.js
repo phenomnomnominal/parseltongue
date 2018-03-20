@@ -2,14 +2,11 @@
 const ESCAPE_CHAR = '\\';
 const QUOTE_CHAR = '\'';
 
-// Utilities:
-import { acceptRun, next } from './lexer-utils';
-
 // Dependencies:
+import { addToken, STRING_LITERAL } from '../tokens';
 import { lexText } from './lex-text';
 import { isLineTerminator } from './lex-whitespace';
-import { addToken } from '../tokens/tokens';
-import { STRING_LITERAL } from '../tokens/token-types';
+import { acceptRun, next } from './utilities';
 
 export function isQuoteChar (c) {
     return c === QUOTE_CHAR;
@@ -21,7 +18,7 @@ export function lexQuote (state, quoteChar) {
         do {
             // Keep consuming characters unless we encounter line
             // terminator, the escape character, or the quote char.
-            if (acceptRun(state, c => !(isLineTerminator(c) || isQuoteChar(c) || isEscpaeChar(c)))) {
+            if (acceptRun(state, c => !(isLineTerminator(c) || isQuoteChar(c) || isEscapeChar(c)))) {
                 escapeEncountered = false;
             }
 
@@ -45,10 +42,11 @@ export function lexQuote (state, quoteChar) {
             } else {
                 escapeEncountered = false;
             }
+        // eslint-disable-next-line no-constant-condition
         } while(true);
     };
 }
 
-function isEscpaeChar (c) {
+function isEscapeChar (c) {
     return c === ESCAPE_CHAR;
 }

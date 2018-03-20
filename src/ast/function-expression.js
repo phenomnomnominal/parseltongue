@@ -3,7 +3,7 @@ import { Expression } from './expression';
 
 export class FunctionExpression extends Expression {
     constructor (params, body, loc) {
-        super('FunctionExpression');
+        super();
         this.params = params;
         this.body = body;
         this.loc = loc;

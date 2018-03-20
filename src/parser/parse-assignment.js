@@ -1,51 +1,63 @@
+// Constants:
+import { ASSIGNMENT } from '../operators';
+
 // Utilities:
-import { throwUnexpected } from './parser-utils';
+import { throwUnexpected } from './utilities';
 import { isUndefined } from 'util';
 
 // Dependencies:
-import { AssignmentExpression } from '../ast/assignment-expression';
-import { CallExpression } from '../ast/call-expression';
+import { AssignmentExpression, CallExpression, VariableDeclaration, VariableDeclarator } from '../ast';
+import { parseArray } from './parse-array';
+import { parseAssignmentExpression } from './parse-assignment-expression';
 import { matchFunction, parseFunction } from './parse-function';
 import { expectIdentifier, transformIdentifier } from './parse-identifier';
-import { matchValue, parseValue } from './parse-value';
+import { expectPunctuators, matchPunctuators } from './parse-punctuators';
 import { matchLineTerminator, expectSpace, matchSpace } from './parse-whitespace';
-import { VariableDeclaration } from '../ast/variable-declaration';
-import { VariableDeclarator } from '../ast/variable-declarator';
 
 export function parseAssignment (state) {
-    let initialValue;
     let identifier = transformIdentifier(expectIdentifier(state));
-    let exists = state.currentScope.identifiers[identifier.name];
+    let { identifiers } = state.currentScope;
+    let exists = identifiers[identifier.name];
 
+    if (exists) {
+        if (matchSpace(state)) {
+            expectSpace(state);
+            if (matchPunctuators(state, ASSIGNMENT)) {
+                expectPunctuators(state, ASSIGNMENT);
+                expectSpace(state);
+                if (exists === 'function') {
+                    if (identifier.name === 'cast') {
+                        identifier.name = 'alert';
+                    }
+                    return new CallExpression(identifier, parseArray(state).elements, identifier.loc);
+                } else {
+                    return new AssignmentExpression(identifier, parseAssignmentExpression(state), identifier.loc);
+                }
+            }
+        } else if (matchLineTerminator(state)) {
+            return new AssignmentExpression(identifier, null, identifier.loc);
+        }
+    }
+
+    let initialiser;
     if (matchSpace(state)) {
         expectSpace(state);
-        if (matchValue(state)) {
-            initialValue = parseValue(identifier, state);
-            state.currentScope.identifiers[identifier.name] = 'value';
+        if (matchPunctuators(state, ASSIGNMENT)) {
+            expectPunctuators(state, ASSIGNMENT);
+            expectSpace(state);
+            initialiser = parseAssignmentExpression(state);
+            identifiers[identifier.name] = 'value';
         } else if (matchFunction(state)) {
-            initialValue = parseFunction(identifier, state);
-            state.currentScope.identifiers[identifier.name] = 'function';
+            initialiser = parseFunction(identifier, state);
+            identifiers[identifier.name] = 'function';
         }
     } else if (matchLineTerminator(state)) {
-        state.currentScope.identifiers[identifier.name] = 'value';
-        initialValue = null;
+        identifiers[identifier.name] = 'value';
+        initialiser = null;
     }
 
-    if (identifier.name === 'cast') {
-        identifier.name = 'alert';
-    }
-
-    if (!isUndefined(initialValue)) {
-        if (exists) {
-            if (exists === 'value') {
-                return new AssignmentExpression(identifier, initialValue, identifier.loc);
-            }
-            if (exists === 'function') {
-                return new CallExpression(identifier, initialValue.elements, identifier.loc);
-            }
-        } else {
-            return new VariableDeclaration([new VariableDeclarator(identifier, initialValue, identifier.loc)], identifier.loc);
-        }
+    if (!isUndefined(initialiser)) {
+        return new VariableDeclaration([new VariableDeclarator(identifier, initialiser, identifier.loc)], identifier.loc);
     }
 
     throwUnexpected(state);
