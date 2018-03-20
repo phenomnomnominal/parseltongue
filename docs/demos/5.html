@@ -18,8 +18,11 @@
 </div>
 
 <script>
-    $('#run-parsing').click(() => {
-        window.inject('./spells/harry.pt', 'text/parseltongue');
-        window.inject('./assets/parseltongue-ast.js');
+    $('#run-parsing').click(async () => {
+        let pt = await parseltongue.load('./spells/harry.pt');
+        let tokens = parseltongue.lex(pt);
+        let ast = parseltongue.parse(tokens);
+        console.log(ast);
+        debugger;
     });
 </script>

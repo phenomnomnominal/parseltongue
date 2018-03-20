@@ -18,8 +18,12 @@
 </div>
 
 <script>
-    $('#run-code-generating').click(() => {
-        window.inject('./spells/harry.pt', 'text/parseltongue');
-        window.inject('./assets/parseltongue-no-lint.js');
+    $('#run-code-generating').click(async () => {
+        let pt = await parseltongue.load('./spells/harry.pt');
+        let tokens = parseltongue.lex(pt);
+        let ast = parseltongue.parse(tokens);
+        let code = parseltongue.generate(ast);
+        console.log(code);
+        debugger;
     });
 </script>

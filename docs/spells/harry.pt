@@ -7,8 +7,5 @@ sssMagic [sssSpell, sssIntensity]
 
     <~ sssSpell + sssIntense
 
-sssResult
 sssss sssI <~ 0 ~> 10
-    sssResult <~ sssMagic <~ [sssSpell, sssI]
-
-sssCast <~ [sssResult]
+    sssCast <~ [sssMagic <~ [sssSpell, sssI]]

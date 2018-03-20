@@ -4,6 +4,7 @@ export * from './binary-expression';
 export * from './block-statement';
 export * from './call-expression';
 export * from './declaration';
+export * from './debugger-statement';
 export * from './expression';
 export * from './expression-statement';
 export * from './for-statement';

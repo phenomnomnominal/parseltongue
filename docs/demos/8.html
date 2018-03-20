@@ -1,10 +1,10 @@
 <div class="row">
-    <h2>Inspecting:</h2>
+    <h2>Escaping!</h2>
 </div>
 
 <div class="row">
     <div class="big ui image">
-        <img src="./assets/voldemort-spell.png" alt="Voldemort's spell to stop Harry escaping!"/>
+        <img src="./assets/harry-spell.png" alt="Harry's spell to escape the internet!"/>
     </div>
 </div>
 
@@ -12,22 +12,21 @@
     <button id="run-inspecting" class="massive blue ui button">
         Run!
     </button>
-    <button id="next" class="massive inverted ui button">
-        Next!
-    </button>
 </div>
 
 <script>
     $('#run-inspecting').click(async () => {
-        let pt = await parseltongue.load('./spells/voldemort.pt');
+        let pt = await parseltongue.load('./spells/harry.pt');
         console.log(pt);
         let tokens = parseltongue.lex(pt);
-        let ast = parseltongue.parse(tokens);
+        let ast = parseltongue.parse(tokens, { debug: true });
         let linted = parseltongue.lint(ast);
         let code = parseltongue.generate(linted);
         console.log(code);
-
         debugger;
-        parseltongue.run(code);
+
+        script = document.createElement('script');
+        script.src = './spells/harry.js';
+        document.head.appendChild(script);
     });
 </script>

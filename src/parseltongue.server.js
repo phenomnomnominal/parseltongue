@@ -8,8 +8,10 @@ import * as path from 'path';
 import { parseltongue } from './index';
 
 let scriptPath = path.resolve(process.cwd(), process.argv[2]);
+let debug = process.argv[3] === '--debug';
+
 let pt = fs.readFileSync(scriptPath, 'utf8');
-let js = parseltongue(scriptPath, pt);
+let js = parseltongue(scriptPath, pt, { debug });
 // eslint-disable-next-line
 console.log(js);
 

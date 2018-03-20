@@ -1,6 +1,7 @@
 <div class="row">
     <h2>RegEx:</h2>
 </div>
+
 <div class="row">
     <div class="big ui image">
         <img src="./assets/harry-spell.png" alt="Harry's spell to escape the internet!"/>
@@ -17,8 +18,10 @@
 </div>
 
 <script>
-    $('#run-regex').click(() => {
-        window.inject('./spells/harry.pt', 'text/parseltongue');
-        window.inject('./assets/parseltongue-regex.js');
+    $('#run-regex').click(async () => {
+        let pt = await parseltongue.load('./spells/harry.pt');
+        let js = parseltongue.regex(pt);
+        console.log(js);
+        debugger;
     });
 </script>

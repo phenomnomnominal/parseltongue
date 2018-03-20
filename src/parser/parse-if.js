@@ -43,5 +43,5 @@ export function parseIf (state, options) {
         }
     }
 
-    return new IfStatement(test, consequent, alternate);
+    return new IfStatement(test, consequent, alternate, test.loc);
 }

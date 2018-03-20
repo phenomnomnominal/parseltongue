@@ -19,13 +19,13 @@ export function parseLoop (state) {
     let [startDeclaration] = init.declarations;
     let startIdentifier = startDeclaration.id;
 
-    expectPunctuators(state, TO);
+    let to = expectPunctuators(state, TO);
     expectSpace(state);
 
     let end = parseBinaryExpression(state);
     let test = new BinaryExpression(LESS_THAN, startIdentifier, end.ast, startIdentifier.loc);
 
-    let update = new AssignmentExpression(startIdentifier, new BinaryExpression(ADD, startIdentifier, new Literal(1)), end.loc);
+    let update = new AssignmentExpression(startIdentifier, new BinaryExpression(ADD, startIdentifier, new Literal(1, to.loc), test.loc), end.loc);
 
     let body = parseBlock(state, {
         insideFunction: false
